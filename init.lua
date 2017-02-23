@@ -1,6 +1,5 @@
 enduser_setup.start(
   function()
-    print("Connected to wifi as:" .. wifi.sta.getip())
     dofile("web.lua")
   end,
   function(err, str)
