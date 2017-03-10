@@ -1,3 +1,4 @@
+-- Starts the enduser_setup Web interface.
 enduser_setup.start(
   function()
     dofile("web.lua")
