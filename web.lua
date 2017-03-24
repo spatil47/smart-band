@@ -1,7 +1,7 @@
 target = "192.168.43.118"
 
 gpio.mode(1,gpio.INT,gpio.PULLUP)
-gpio.mode(10,gpio.INT,gpio.PULLUP)
+gpio.mode(12,gpio.INT,gpio.PULLUP)
 
 udpSocket = net.createUDPSocket()
 udpSocket:listen(5000)
@@ -13,7 +13,7 @@ gpio.trig(1,"down",function(level,when)
     cmd.close()
 end)
 
-gpio.trig(10,"down",function(level,when)
+gpio.trig(12,"down",function(level,when)
     print("off")
     cmd = file.open("Smart_outlet_off.dat", "r")
     udpSocket:send(80, target, cmd:read())
