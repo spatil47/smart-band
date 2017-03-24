@@ -1,4 +1,4 @@
-target = "192.168.43.118"
+target = "192.168.1.100"
 
 gpio.mode(1,gpio.INT,gpio.PULLUP)
 gpio.mode(12,gpio.INT,gpio.PULLUP)
