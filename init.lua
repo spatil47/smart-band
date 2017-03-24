@@ -1,11 +1,5 @@
--- Starts the enduser_setup Web interface.
-enduser_setup.start(
-  function()
-    dofile("web.lua")
-  end,
-  function(err, str)
-    print("enduser_setup: Err #" .. err .. ": " .. str)
-  end,
-  print -- Lua print function can serve as the debug callback
-);
+gpio.mode(1,gpio.INT,gpio.PULLUP)
 
+gpio.trig(1,"both",function(level,when)
+    print(level);
+end)
