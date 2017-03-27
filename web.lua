@@ -20,6 +20,8 @@
 
 target = "192.168.1.100"
 
+pulse_count = 0;
+
 gpio.mode(1,gpio.INT,gpio.PULLUP)
 gpio.mode(12,gpio.INT,gpio.PULLUP)
 
@@ -27,6 +29,7 @@ udpSocket = net.createUDPSocket()
 udpSocket:listen(5000)
 
 gpio.trig(1,"down",function(level,when)
+    pulse_count = pulse_count + 1;
     print("on")
     cmd = file.open("Smart_outlet_on.dat", "r")
     udpSocket:send(80, target, cmd:read())
