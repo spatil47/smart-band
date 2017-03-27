@@ -28,7 +28,7 @@ gpio.mode(12,gpio.INT,gpio.PULLUP)
 udpSocket = net.createUDPSocket()
 udpSocket:listen(5000)
 
-gpio.trig(1,"down",function(level,when)
+gpio.trig(1,"down",function(pulse_level,current_timestamp)
     pulse_count = pulse_count + 1;
     print("on")
     cmd = file.open("Smart_outlet_on.dat", "r")
@@ -36,7 +36,7 @@ gpio.trig(1,"down",function(level,when)
     cmd.close()
 end)
 
-gpio.trig(12,"down",function(level,when)
+gpio.trig(12,"down",function()
     print("off")
     cmd = file.open("Smart_outlet_off.dat", "r")
     udpSocket:send(80, target, cmd:read())
