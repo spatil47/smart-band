@@ -42,6 +42,3 @@ gpio.trig(12,"down",function(level,when)
     udpSocket:send(80, target, cmd:read())
     cmd.close()
 end)
-
-port, ip = udpSocket:getaddr()
-print(string.format("local UDP socket address / port: %s:%d", ip, port))
