@@ -1,3 +1,6 @@
+-- Copyright 2017 Siddharth Patil
+-- Released under MIT License. See LICENSE.md for details.
+
 target = "192.168.1.100"
 
 gpio.mode(1,gpio.INT,gpio.PULLUP)
