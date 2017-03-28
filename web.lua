@@ -37,6 +37,15 @@ gpio.trig(1,"down",function(pulse_level,current_timestamp)
     elseif pulse_count == 10 then
         pulse_rate = (pulse_count + 1) / (current_timestamp - first_timestamp);
         print("Pulse rate (BPM): " .. pulse_rate*60*1000000)
+        if pulse_rate*60*1000000 > 60 then
+            cmd = file.open("Smart_outlet_on.dat", "r")
+            udpSocket:send(80, target, cmd:read())
+            cmd.close()
+        else
+            cmd = file.open("Smart_outlet_off.dat", "r")
+            udpSocket:send(80, target, cmd:read())
+            cmd.close()
+        end
         pulse_count = 0
     else
         pulse_count = pulse_count + 1;
