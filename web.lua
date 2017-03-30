@@ -24,6 +24,23 @@ pulse_count = 0;
 first_timestamp = 0;
 pulse_rate_bpm = 0;
 
+srv=net.createServer(net.TCP)
+srv:listen(8000,function(conn)
+  conn:on("receive",function(conn,payload)
+    print(payload)
+    local buf = "HTTP/1.1 200 OK\r\n"
+    buf = buf.."Content-Type: text/html; charset=utf-8\r\n\r\n"
+    buf = buf.."<html><head><title>Smart band Web interface</title>"
+    buf = buf.."<meta http-equiv=\"refresh\" content=\"2\">"
+    buf = buf.."</head><body><h1>Pulse rate (BPM)</h1><p>"
+    buf = buf..pulse_rate_bpm
+    buf = buf.."</p><p>Refresh page to update reading</p>"
+    buf = buf.."</body></html>"
+    conn:send(buf)
+  end)
+  conn:on("sent",function(conn) conn:close() end)
+end)
+
 gpio.mode(1,gpio.INT,gpio.PULLUP)
 gpio.mode(12,gpio.INT,gpio.PULLUP)
 
