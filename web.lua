@@ -55,6 +55,7 @@ end)
 
 gpio.trig(12,"down",function()
     print("off")
+    pulse_count = 0
     cmd = file.open("Smart_outlet_off.dat", "r")
     udpSocket:send(80, target, cmd:read())
     cmd.close()
