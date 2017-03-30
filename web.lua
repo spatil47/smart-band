@@ -27,9 +27,6 @@ pulse_rate_bpm = 0;
 gpio.mode(1,gpio.INT,gpio.PULLUP)
 gpio.mode(12,gpio.INT,gpio.PULLUP)
 
-udpSocket = net.createUDPSocket()
-udpSocket:listen(5000)
-
 gpio.trig(1,"down",function(pulse_level,current_timestamp)
     if pulse_count == 0 then
         pulse_count = 1
@@ -38,13 +35,9 @@ gpio.trig(1,"down",function(pulse_level,current_timestamp)
         pulse_rate_bpm = (pulse_count*60*1000000) / (current_timestamp - first_timestamp);
         print("Pulse rate (BPM): " .. pulse_rate_bpm)
         if pulse_rate_bpm > 60 then
-            cmd = file.open("Smart_outlet_on.dat", "r")
-            udpSocket:send(80, target, cmd:read())
-            cmd.close()
+            --
         else
-            cmd = file.open("Smart_outlet_off.dat", "r")
-            udpSocket:send(80, target, cmd:read())
-            cmd.close()
+            --
         end
         pulse_count = 0
     else
@@ -56,7 +49,4 @@ end)
 gpio.trig(12,"down",function()
     print("off")
     pulse_count = 0
-    cmd = file.open("Smart_outlet_off.dat", "r")
-    udpSocket:send(80, target, cmd:read())
-    cmd.close()
 end)
