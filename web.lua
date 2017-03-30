@@ -34,11 +34,6 @@ gpio.trig(1,"down",function(pulse_level,current_timestamp)
     elseif pulse_count == 3 then
         pulse_rate_bpm = (pulse_count*60*1000000) / (current_timestamp - first_timestamp);
         print("Pulse rate (BPM): " .. pulse_rate_bpm)
-        if pulse_rate_bpm > 60 then
-            --
-        else
-            --
-        end
         pulse_count = 0
     else
         pulse_count = pulse_count + 1;
