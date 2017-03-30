@@ -47,6 +47,6 @@ gpio.trig(1,"down",function(pulse_level,current_timestamp)
 end)
 
 gpio.trig(12,"down",function()
-    print("off")
+    print("reset")
     pulse_count = 0
 end)
