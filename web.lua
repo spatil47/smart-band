@@ -41,7 +41,7 @@ srv:listen(8000,function(conn)
   conn:on("sent",function(conn) conn:close() end)
 end)
 
-gpio.mode(1,gpio.INT,gpio.PULLUP)
+gpio.mode(1,gpio.INT,gpio.FLOAT)
 gpio.mode(12,gpio.INT,gpio.PULLUP)
 
 gpio.trig(1,"down",function(pulse_level,current_timestamp)
