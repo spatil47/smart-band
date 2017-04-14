@@ -35,7 +35,12 @@ gpio.trig(1,"down",function(pulse_level,current_timestamp)
         pulse_count = 1
         first_timestamp = current_timestamp
     elseif pulse_count == 3 then
-        pulse_rate_bpm = (pulse_count*60*1000000) / (current_timestamp - first_timestamp);
+        current_pulse_rate_bpm = (pulse_count*60*1000000*0.5) / (current_timestamp - first_timestamp);
+        if pulse_rate_bpm == 0 then
+            pulse_rate_bpm = current_pulse_rate_bpm
+        else
+            pulse_rate_bpm = (pulse_rate_bpm + current_pulse_rate_bpm) / 2
+        end
         print("Pulse rate (BPM): " .. pulse_rate_bpm)
         if pulse_rate_bpm > 60 then
             cmd = file.open("Smart_outlet_on.dat", "r")
