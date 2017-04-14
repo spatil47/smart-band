@@ -1,4 +1,9 @@
--- Copyright (c) 2015 Scott Beasley (http://robotshop.com/letsmakerobots/nodemcu-esp8266-simple-httpd-web-server-example)
+-- Simple NodeMCU web server (done is a not so nodeie fashion :-)
+-- (http://robotshop.com/letsmakerobots/nodemcu-esp8266-simple-httpd-web-server-example)
+--
+-- Written by Scott Beasley 2015
+-- Open and free to change and use. Enjoy.
+--
 -- Modifications copyright (c) 2017 Siddharth Patil
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
