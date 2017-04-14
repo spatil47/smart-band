@@ -19,10 +19,6 @@
 -- OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 -- SOFTWARE.
 
--- Your Wifi connection data
-local SSID = "xxxxxxxx"
-local SSID_PASSWORD = "xxxxxxxx"
-
 local function connect (conn, data)
    local query_data
 
@@ -82,11 +78,6 @@ function trim (s)
   return (s:gsub ("^%s*(.-)%s*$", "%1"))
 end
 
--- Configure the ESP as a station (client)
-wifi.setmode (wifi.STATION)
-wifi.sta.config (SSID, SSID_PASSWORD)
-wifi.sta.autoconnect (1)
-
 -- Hang out until we get a wifi connection before the httpd server is started.
 wait_for_wifi_conn ( )
 
@@ -94,4 +85,4 @@ wait_for_wifi_conn ( )
 svr = net.createServer (net.TCP, 30)
 
 -- Server listening on port 80, call connect function if a request is received
-svr:listen (80, connect)
+svr:listen (8000, connect)
