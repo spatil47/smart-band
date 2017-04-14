@@ -25,7 +25,7 @@ local function connect (conn, data)
    conn:on ("receive",
       function (cn, req_data)
          query_data = get_http_req (req_data)
-         print (query_data["METHOD"] .. " " .. " " .. query_data["User-Agent"])
+         print (query_data["METHOD"] .. " " .. query_data["REQUEST"] .. " " .. query_data["User-Agent"])
          cn:send ("Hello World from ESP8266 and NodeMCU!!")
       end)
    conn:on ("sent",
