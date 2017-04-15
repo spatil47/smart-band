@@ -31,8 +31,19 @@ local function connect (conn, data)
       function (cn, req_data)
          query_data = get_http_req (req_data)
          print (query_data["METHOD"] .. " " .. " " .. query_data["User-Agent"])
-         cn:send ("HTTP/1.1 200 OK\r\nContent-Type: text/html\r\n\r\n")
-         cn:send ("Hello World from ESP8266 and NodeMCU!!<pre>")
+         if(query_data["REQUEST"]["threshold"] == nil) then
+            srv = file.open("index.html", "r")
+            cn:send ("HTTP/1.1 200 OK\r\nContent-Type: text/html\r\n\r\n")
+            cn:send (srv:read())
+            srv:close()
+         else
+            cn:send ("HTTP/1.1 200 OK\r\nContent-Type: text/html\r\n\r\n")
+            cn:send ("<html><head><title>Smart band Web interface</title>")
+            cn:send ("</head><body><h1>Smart band Web interface</h1>")
+            cn:send ("<p>Setting has been submitted.</p>")
+            cn:send ("<p>Set value: " .. query_data["REQUEST"]["threshold"] .. "</p>")
+            cn:send ("</body></html>")
+         end
       end)
    conn:on ("sent",
       function(cn)
@@ -72,7 +83,7 @@ function get_http_req (instr)
          if (v ~= nil) then
             for rk, rv in string.gmatch (v, "(%w+)=(%w+)&*") do
                 t["REQUEST"][rk] = rv
-             end
+            end
          end
       else -- Process and reamaining ":" fields
          strt_ndx, end_ndx = string.find (str, "([^:]+)")
