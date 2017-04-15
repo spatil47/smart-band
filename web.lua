@@ -37,12 +37,15 @@ local function connect (conn, data)
             cn:send (srv:read())
             srv:close()
          else
+            set = file.open("threshold", "w+")
+            set:write(query_data["REQUEST"]["threshold"])
             cn:send ("HTTP/1.1 200 OK\r\nContent-Type: text/html\r\n\r\n")
             cn:send ("<html><head><title>Smart band Web interface</title>")
             cn:send ("</head><body><h1>Smart band Web interface</h1>")
             cn:send ("<p>Setting has been submitted.</p>")
             cn:send ("<p>Set value: " .. query_data["REQUEST"]["threshold"] .. "</p>")
             cn:send ("</body></html>")
+            set:close()
          end
       end)
    conn:on ("sent",
