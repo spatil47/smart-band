@@ -18,7 +18,14 @@
 -- OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 -- SOFTWARE.
 
+svr:close()
+
 target = "192.168.1.100"
+
+if file.open("threshold", "r") then
+    threshold = tonumber(file.read())
+    file.close()
+end
 
 pulse_count = 0;
 first_timestamp = 0;
@@ -44,11 +51,13 @@ gpio.trig(1,"down",function(pulse_level,current_timestamp)
             end
         end
         print("Pulse rate (BPM): " .. pulse_rate_bpm)
-        if pulse_rate_bpm > 60 then
+        if pulse_rate_bpm > threshold then
+            print("Smart outlet on")
             cmd = file.open("Smart_outlet_on.dat", "r")
             udpSocket:send(80, target, cmd:read())
             cmd.close()
         else
+            print("Smart outlet off")
             cmd = file.open("Smart_outlet_off.dat", "r")
             udpSocket:send(80, target, cmd:read())
             cmd.close()
