@@ -32,7 +32,7 @@ local function connect (conn, data)
          query_data = get_http_req (req_data)
          print (query_data["METHOD"] .. " " .. " " .. query_data["User-Agent"])
          cn:send ("HTTP/1.1 200 OK\r\nContent-Type: text/html\r\n\r\n")
-         cn:send ("Hello World from ESP8266 and NodeMCU!!")
+         cn:send ("Hello World from ESP8266 and NodeMCU!!<pre>")
       end)
    conn:on ("sent",
       function(cn)
@@ -58,7 +58,7 @@ function get_http_req (instr)
    local t = {}
    local first = nil
    local key, v, strt_ndx, end_ndx
-   local req_key, req_v, req_strt_ndx, req_end_ndx
+   local rk, rv
 
    for str in string.gmatch (instr, "([^\n]+)") do
       -- First line in the method and path
@@ -69,11 +69,10 @@ function get_http_req (instr)
          key = trim (string.sub (str, strt_ndx, end_ndx))
          t["METHOD"] = key
          t["REQUEST"] = {}
-         for req_str in string.gmatch (v, "([^/?]+)") do
-            req_strt_ndx, req_end_ndx = string.find(req_str, "([^=]+)")
-            req_v = trim (string.sub (req_str, req_end_ndx + 2))
-            key = trim (string.sub (req_str, req_strt_ndx, req_end_ndx))
-            t["REQUEST"][key] = req_v
+         if (v ~= nil) then
+            for rk, rv in string.gmatch (v, "(%w+)=(%w+)&*") do
+                t["REQUEST"][rk] = rv
+             end
          end
       else -- Process and reamaining ":" fields
          strt_ndx, end_ndx = string.find (str, "([^:]+)")
