@@ -46,6 +46,7 @@ local function connect (conn, data)
             cn:send ("<p>Set value: " .. query_data["REQUEST"]["threshold"] .. "</p>")
             cn:send ("</body></html>")
             set:close()
+            dofile("control.lua")
          end
       end)
    conn:on ("sent",
