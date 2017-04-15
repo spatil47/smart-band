@@ -36,7 +36,7 @@ local function connect (conn, data)
             cn:send ("HTTP/1.1 200 OK\r\nContent-Type: text/html\r\n\r\n")
             cn:send (srv:read())
             srv:close()
-         elseif((tonumber(query_data["REQUEST"]["threshold"]) <= 48) or (tonumber(query_data["REQUEST"]["threshold"]) >= 120)) then
+         elseif((tonumber(query_data["REQUEST"]["threshold"]) <= 48) or (tonumber(query_data["REQUEST"]["threshold"]) >= 180)) then
             srv = file.open("error.html", "r")
             cn:send ("HTTP/1.1 200 OK\r\nContent-Type: text/html\r\n\r\n")
             cn:send (srv:read())
