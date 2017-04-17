@@ -8,7 +8,7 @@ This project is designed to operate on the floating-point edition of the NodeMCU
 ## Copyright and licensing
 Unless listed here, see each file for licensing information.
 
-### `Smart_outlet_off.dat` and `Smart_outlet_on.dat`
+### `Smart_outlet_off.dat`, `Smart_outlet_on.dat`, `index.html`, `error.html`, `README.md`
 
 To the extent possible under law, the author(s) have dedicated all copyright and related and neighboring rights to this software to the public domain worldwide. 
 This software is distributed without any warranty.
